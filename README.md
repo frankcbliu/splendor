@@ -2,35 +2,63 @@
 
 This is an homage to the board game [Splendor](https://boardgamegeek.com/boardgame/148228/splendor).
 
-Included are a game server, a python command line client and a javascript web client. The game is hosted at [http://splendorlord.xyz](http://splendorlord.xyz).
-
 ## Differences from the official game rules
 
 There is only one known difference between this version and the official version of the game: in this version you are not allowed to spend gold gems if you have the correct color gem you are substituting for gold. In practice this affects games extremely rarely since in the vast majority of cases you would prefer not to spend your gold gems, but spending gold gems could theoretically be strategically correct to deny a certain chip pile.
 
 ## How to run
 
-Option 1:
+以下两种方式任选一种即可
 
-Start server with [docker](https://www.docker.com/)
+
+### 1. 服务器部署
+
+自行购买云服务器(比如腾讯云轻量级服务器等)
+
+安装好`docker/docker-compose`等前置依赖后，在项目根目录下，即 `docker-compose.yml` 所在路径
+执行:
 ```
 docker-compose up
 ```
 
-Option 2:
+打开服务器防火墙的 8000 端口
 
-Alternatively, [install virtualenv](https://virtualenv.pypa.io/en/stable/installation/) and run the installation script:
+然后各自访问该服务器ip:8000即可。
 
+### 2.本地运行:
+
+需要提前装好 `virtualenv`:
+```
+pip3 install virtualenv
+```
+
+然后:
 ```
 ./install.sh
 ```
-Then run the server with
+
+然后启动:
 ```
 ENV/bin/python server/splendor.py
+或者
+python3 server/splendor.py
 ```
 
-## How to play
+- 局域网内对战方式:(两人共用一个 Wifi)
 
-Open your browser [http://127.0.0.1:8000](http://127.0.0.1:8000)
+房主本地打开 `127.0.0.1:8000`，注意下图中的地址即为房主所在的内网 IP
 
-Use **shrek** / **islove** for basic authentication
+![](img/run.jpg)
+
+随便填写房间号，然后创建游戏
+
+![](img/wait.jpg)
+
+让 2P 访问 `内网ip:8000/房间名` 即可, 以我这里为例子，需要访问: `http://192.168.255.10:8000/Roundabout`
+
+2P 点击页面右上角加入游戏后:
+
+![](img/ready.jpg)
+
+1P 点击开始游戏即可。
+
