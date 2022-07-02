@@ -6,11 +6,16 @@ MAX_PLAYERS = 4
 COLORS = ('b', 'u', 'w', 'g', 'r')
 LEVELS = ('level1', 'level2', 'level3')
 COLOR_DICT = {
-    'b': 'chocolate',
-    'u': 'sapphire',
-    'w': 'diamond',
-    'g': 'emerald',
-    'r': 'ruby',
+    # 'b': 'chocolate',
+    # 'u': 'sapphire',
+    # 'w': 'diamond',
+    # 'g': 'emerald',
+    # 'r': 'ruby',
+    'b': '巧克力', # chocolate
+    'u': '蓝宝石', # sapphire
+    'w': '钻石', # diamond
+    'g': '绿宝石', # emerald
+    'r': '红宝石', # ruby
 }
 
 class Player(object):
@@ -40,7 +45,7 @@ class Player(object):
 
     def dict(self):
         cards = {}
-        for k, v in self.cards.iteritems():
+        for k, v in self.cards.items():
             cards[k] = array_dict(v)
         return {
             'id': self.id,
@@ -213,7 +218,7 @@ def player_from_dict(obj, game):
     self.uuid = obj['uuid']
     self.reserved = [card_from_dict(x) for x in obj['reserved']]
     self.gems = obj['gems']
-    for k, v in obj['cards'].iteritems():
+    for k, v in obj['cards'].items():
         self.cards[k] = [card_from_dict(x) for x in v]
     self.nobles = [noble_from_dict(x) for x in v]
     return self
@@ -267,7 +272,7 @@ class Card(object):
 
     def __str__(self):
         result = "{0} card worth {1}, costing ".format(COLOR_DICT[self.color], self.points)
-        costs = ["{0} {1}".format(v, COLOR_DICT[k]) for k, v in self.cost.iteritems() if v > 0]
+        costs = ["{0} {1}".format(v, COLOR_DICT[k]) for k, v in self.cost.items() if v > 0]
         return result + ', '.join(costs)
 
     def dict(self):
@@ -297,7 +302,7 @@ def array_dict(cards):
 
 def shuffle_deck(deck):
     n = len(deck)
-    for i in xrange(n):
+    for i in range(n):
         j = random.randint(i, n-1)
         x = deck[j]
         deck[j] = deck[i]
@@ -318,7 +323,7 @@ class Noble(object):
 
     def __str__(self):
         result = "noble worth {0}, seeking ".format(self.points)
-        costs = ["{0} {1}".format(v, COLOR_DICT[k]) for k, v in self.requirement.iteritems() if v > 0]
+        costs = ["{0} {1}".format(v, COLOR_DICT[k]) for k, v in self.requirement.items() if v > 0]
         return result + ', '.join(costs)
 
     def dict(self):
@@ -507,9 +512,9 @@ class Game(object):
     def private_dict(self):
         cards = {}
         decks = {}
-        for k, v in self.cards.iteritems():
+        for k, v in self.cards.items():
             cards[k] = array_dict(v)
-        for k, v in self.decks.iteritems():
+        for k, v in self.decks.items():
             decks[k] = array_dict(v)
 
         return {
@@ -648,9 +653,9 @@ def game_from_dict(obj):
     self.active_player_index = obj['turn']
     self.num_players = obj['num_players']
     self.players = [player_from_dict(p, self) if p else None for p in obj['players']]
-    for k, v in obj['cards'].iteritems():
+    for k, v in obj['cards'].items():
         self.cards[k] = [card_from_dict(c) for c in v]
-    for k, v in obj['decks'].iteritems():
+    for k, v in obj['decks'].items():
         self.decks[k] = [card_from_dict(c) for c in v]
     self.nobles = [noble_from_dict(n) for n in obj['nobles']]
     return self

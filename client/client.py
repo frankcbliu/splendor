@@ -105,7 +105,7 @@ def print_state():
     print ''
     print_nobles(curr_state['nobles'])
     print ''
-    for k, v in curr_state['cards'].iteritems():
+    for k, v in curr_state['cards'].items():
         print '{0} -> {1} remaining'.format(k, curr_state['decks'][k])
         print '-----------------------'
         for card in v:
