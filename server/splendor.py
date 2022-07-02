@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from flask import Flask, Response, request, send_from_directory
 from functools import wraps
 from player_and_game import *
